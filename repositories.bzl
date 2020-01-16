@@ -7,7 +7,8 @@ MINIMUM_BAZEL_VERSION = "1.0.0"
 ENABLE_VERSION_NAGS = False
 VERSIONS = {
     # Core
-    "com_google_protobuf": { # When updating, also update Node.js requirements, Ruby requirements and C# requirements
+    "com_google_protobuf": {
+        # When updating, also update Node.js requirements, Ruby requirements and C# requirements
         "type": "github",
         "org": "protocolbuffers",
         "repo": "protobuf",
@@ -24,7 +25,8 @@ VERSIONS = {
             },
         ],
     },
-    "com_github_grpc_grpc": { # When updating, also update Python requirements, Node.js requirements, Ruby requirements and C# requirements
+    "com_github_grpc_grpc": {
+        # When updating, also update Python requirements, Node.js requirements, Ruby requirements and C# requirements
         "type": "github",
         "org": "grpc",
         "repo": "grpc",
@@ -70,7 +72,6 @@ VERSIONS = {
         "sha256": "e5d90f0ec952883d56747b7604e2a15ee36e288bb556c3d0ed33e818a4d971f2",
     },
 
-
     # Misc
     "com_github_bazelbuild_buildtools": {
         "type": "github",
@@ -98,7 +99,7 @@ VERSIONS = {
         "type": "github",
         "org": "protocolbuffers",
         "repo": "protobuf",
-        "ref": "fa08222434bc58d743e8c2cc716bc219c3d0f44e", # Jul 2019
+        "ref": "fa08222434bc58d743e8c2cc716bc219c3d0f44e",  # Jul 2019
         "sha256": "b04b08d31208be32aafdf5842d1b6073d527a67ff8d2cf4b17ee8f22a5273758",
     },
 
@@ -107,7 +108,7 @@ VERSIONS = {
         "type": "github",
         "org": "bazelbuild",
         "repo": "rules_dotnet",
-        "ref": "420a6b6cf49223bb372e734da8dc181d615ed01c", # June 26, 2019
+        "ref": "420a6b6cf49223bb372e734da8dc181d615ed01c",  # June 26, 2019
         "sha256": "e6e0e513d23c655a97f3700683aba924c578cb1458bcd42bbbc5e5c512f6d86b",
     },
 
@@ -125,7 +126,7 @@ VERSIONS = {
         "type": "github",
         "org": "bazelbuild",
         "repo": "rules_d",
-        "ref": "c4af62269c85dd5dcab0be119196baa5da4662b6", # June 28, 2019 + PR 30
+        "ref": "c4af62269c85dd5dcab0be119196baa5da4662b6",  # June 28, 2019 + PR 30
         "sha256": "ef380076035d42bfc8b9a5547092779792de4b0cf718b9623a7c1923b0cd23e6",
     },
     "com_github_dcarp_protobuf_d": {
@@ -182,28 +183,28 @@ VERSIONS = {
         "type": "github",
         "org": "grpc",
         "repo": "grpc-java",
-        "ref": "v1.24.2",
-        "sha256": "83bb3a29b0fcbf6d3242b5827e9e8d3683b4aad907628fcb9a37925dc9d7c867",
+        "ref": "c606519a5d75b844bfc8bd243c6c9ebe1c742f96",
+        "sha256": "74b5ddeb7c766e2d63df00ffc7bec2a3c805843cf8b3ab5dca4d2d6a536ddc24",
     },
     "javax_annotation_javax_annotation_api": {
         "type": "jvm_maven_import_external",
         "artifact": "javax.annotation:javax.annotation-api:1.2",
         "server_urls": ["http://central.maven.org/maven2"],
         "artifact_sha256": "5909b396ca3a2be10d0eea32c74ef78d816e1b4ead21de1d78de1f890d033e04",
-        "licenses": ["reciprocal"], # CDDL License
+        "licenses": ["reciprocal"],  # CDDL License
     },
     "com_google_errorprone_error_prone_annotations": {
         "type": "jvm_maven_import_external",
         "artifact": "com.google.errorprone:error_prone_annotations:2.3.2",
         "server_urls": ["http://central.maven.org/maven2"],
         "artifact_sha256": "357cd6cfb067c969226c442451502aee13800a24e950fdfde77bcdb4565a668d",
-        "licenses": ["notice"], # Apache 2.0
+        "licenses": ["notice"],  # Apache 2.0
         "binds": [
             {
                 "name": "error_prone_annotations",
                 "actual": "@com_google_errorprone_error_prone_annotations//jar",
             },
-        ]
+        ],
     },
 
     # NodeJS
@@ -236,7 +237,7 @@ VERSIONS = {
         "type": "github",
         "org": "yugui",
         "repo": "rules_ruby",
-        "ref": "73479cdc6a34a8d940cc3c904badf7a2ae6bdc6d", # PR#8
+        "ref": "73479cdc6a34a8d940cc3c904badf7a2ae6bdc6d",  # PR#8
         "sha256": "bd88b1aa144f70bb3f069ff3ddc5ddba032311ce27fb40b7276db694dcb63490",
     },
 
@@ -294,7 +295,6 @@ VERSIONS = {
     },
 }
 
-
 def _generic_dependency(name, **kwargs):
     if name not in VERSIONS:
         fail("Name {} not in VERSIONS".format(name))
@@ -327,12 +327,15 @@ def _generic_dependency(name, **kwargs):
         elif existing_rules[name]["kind"] != "http_archive":
             if ENABLE_VERSION_NAGS:
                 print("Dependency '{}' has already been declared with a different rule kind. Found {}, expected http_archive".format(
-                    name, existing_rules[name]["kind"],
+                    name,
+                    existing_rules[name]["kind"],
                 ))
         elif existing_rules[name]["urls"] != tuple(urls):
             if ENABLE_VERSION_NAGS:
                 print("Dependency '{}' has already been declared with a different version. Found urls={}, expected {}".format(
-                    name, existing_rules[name]["urls"], tuple(urls)
+                    name,
+                    existing_rules[name]["urls"],
+                    tuple(urls),
                 ))
 
     elif dep["type"] == "http":
@@ -342,12 +345,15 @@ def _generic_dependency(name, **kwargs):
         elif existing_rules[name]["kind"] != "http_archive":
             if ENABLE_VERSION_NAGS:
                 print("Dependency '{}' has already been declared with a different rule kind. Found {}, expected http_archive".format(
-                    name, existing_rules[name]["kind"],
+                    name,
+                    existing_rules[name]["kind"],
                 ))
         elif existing_rules[name]["urls"] != tuple(dep["urls"]):
             if ENABLE_VERSION_NAGS:
                 print("Dependency '{}' has already been declared with a different version. Found urls={}, expected {}".format(
-                    name, existing_rules[name]["urls"], tuple(dep["urls"])
+                    name,
+                    existing_rules[name]["urls"],
+                    tuple(dep["urls"]),
                 ))
 
     elif dep["type"] == "jvm_maven_import_external":
@@ -357,12 +363,15 @@ def _generic_dependency(name, **kwargs):
         elif existing_rules[name]["kind"] != "jvm_import_external":
             if ENABLE_VERSION_NAGS:
                 print("Dependency '{}' has already been declared with a different rule kind. Found {}, expected jvm_import_external".format(
-                    name, existing_rules[name]["kind"],
+                    name,
+                    existing_rules[name]["kind"],
                 ))
         elif existing_rules[name]["artifact_sha256"] != dep["artifact_sha256"]:
             if ENABLE_VERSION_NAGS:
                 print("Dependency '{}' has already been declared with a different version. Found artifact_sha256={}, expected {}".format(
-                    name, existing_rules[name]["artifact_sha256"], dep["artifact_sha256"]
+                    name,
+                    existing_rules[name]["artifact_sha256"],
+                    dep["artifact_sha256"],
                 ))
 
     else:
@@ -376,7 +385,6 @@ def _generic_dependency(name, **kwargs):
                     actual = bind["actual"],
                 )
 
-
 # Write version data. Required for both upb and rules_rust
 def _store_bazel_version(repository_ctx):
     repository_ctx.file("BUILD", "exports_files(['def.bzl'])")
@@ -387,14 +395,12 @@ bazel_version_repository = repository_rule(
     implementation = _store_bazel_version,
 )
 
-
 #
 # Toolchains
 #
 def rules_proto_grpc_toolchains():
     check_bazel_minimum_version(MINIMUM_BAZEL_VERSION)
     native.register_toolchains(str(Label("//protobuf:protoc_toolchain")))
-
 
 #
 # Core
@@ -403,7 +409,7 @@ def rules_proto_grpc_repos(**kwargs):
     check_bazel_minimum_version(MINIMUM_BAZEL_VERSION)
 
     bazel_version_repository(
-        name = "bazel_version"
+        name = "bazel_version",
     )
 
     rules_python(**kwargs)
@@ -434,8 +440,6 @@ def com_github_grpc_grpc(**kwargs):
 def external_zlib(**kwargs):
     _generic_dependency("zlib", **kwargs)
 
-
-
 #
 # Misc
 #
@@ -444,7 +448,6 @@ def bazel_skylib(**kwargs):
 
 def com_github_bazelbuild_buildtools(**kwargs):
     _generic_dependency("com_github_bazelbuild_buildtools", **kwargs)
-
 
 #
 # Android
@@ -458,20 +461,17 @@ def com_google_guava_guava_android(**kwargs):
 def com_google_protobuf_javalite(**kwargs):
     _generic_dependency("com_google_protobuf_javalite", **kwargs)
 
-
 #
 # Closure
 #
 def io_bazel_rules_closure(**kwargs):
     _generic_dependency("io_bazel_rules_closure", **kwargs)
 
-
 #
 # C Sharp
 #
 def io_bazel_rules_dotnet(**kwargs):
     _generic_dependency("io_bazel_rules_dotnet", **kwargs)
-
 
 #
 # D
@@ -482,7 +482,6 @@ def io_bazel_rules_d(**kwargs):
 def com_github_dcarp_protobuf_d(**kwargs):
     _generic_dependency("com_github_dcarp_protobuf_d", **kwargs)
 
-
 #
 # Go
 #
@@ -492,20 +491,17 @@ def io_bazel_rules_go(**kwargs):
 def bazel_gazelle(**kwargs):
     _generic_dependency("bazel_gazelle", **kwargs)
 
-
 #
 # gRPC gateway
 #
 def grpc_ecosystem_grpc_gateway(**kwargs):
     _generic_dependency("grpc_ecosystem_grpc_gateway", **kwargs)
 
-
 #
 # gRPC web
 #
 def com_github_grpc_grpc_web(**kwargs):
     _generic_dependency("com_github_grpc_grpc_web", **kwargs)
-
 
 #
 # Java
@@ -523,13 +519,11 @@ def javax_annotation_javax_annotation_api(**kwargs):
 def com_google_errorprone_error_prone_annotations(**kwargs):
     _generic_dependency("com_google_errorprone_error_prone_annotations", **kwargs)
 
-
 #
 # NodeJS
 #
 def build_bazel_rules_nodejs(**kwargs):
     _generic_dependency("build_bazel_rules_nodejs", **kwargs)
-
 
 #
 # Python
@@ -540,20 +534,17 @@ def subpar(**kwargs):
 def six(**kwargs):
     _generic_dependency("six", **kwargs)
 
-
 #
 # Ruby
 #
 def com_github_yugui_rules_ruby(**kwargs):
     _generic_dependency("com_github_yugui_rules_ruby", **kwargs)
 
-
 #
 # Rust
 #
 def io_bazel_rules_rust(**kwargs):
     _generic_dependency("io_bazel_rules_rust", **kwargs)
-
 
 #
 # Scala
@@ -572,7 +563,6 @@ def scalapb_runtime_grpc(**kwargs):
 
 def scalapb_lenses(**kwargs):
     _generic_dependency("scalapb_lenses", **kwargs)
-
 
 #
 # Swift
