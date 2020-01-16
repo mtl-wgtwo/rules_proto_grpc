@@ -184,7 +184,7 @@ VERSIONS = {
         "org": "grpc",
         "repo": "grpc-java",
         "ref": "c606519a5d75b844bfc8bd243c6c9ebe1c742f96",
-        "sha256": "74b5ddeb7c766e2d63df00ffc7bec2a3c805843cf8b3ab5dca4d2d6a536ddc24",
+        "sha256": "74fe531b45c6ad4c6af2d82fbfbbd0a36edd5ce7d14e3a30eabc0cb0fa98b761",
     },
     "javax_annotation_javax_annotation_api": {
         "type": "jvm_maven_import_external",
